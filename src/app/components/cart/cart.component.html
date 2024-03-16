@@ -1,0 +1,38 @@
+<section *ngIf="cartDetails != null" class="container mx-auto  p-5 margin-top shadow border mb-3">
+  <div class="d-flex justify-content-between align align-items-center">
+    <h1 class="fs-5 text-info">shop Cart</h1> 
+  <button class="btn btn-outline-danger m-2" (click)="claerCart()">Clear All</button>
+  </div>
+
+
+  <p  class="border-bottom w-25 mb-3 pb-3 text-danger fs-6 "> <b>Total Price  : </b> {{cartDetails.totalCartPrice | currency : ' EGP '}}</p>
+  <div class="row border-bottom py-2" *ngFor="let item of cartDetails.products">
+   <div class="col-lg-1">
+    <img height="100"  [src]="item.product.imageCover" [alt]="item.product.title">
+   </div>
+   <div class="col-lg-10 d-flex justify-content-between align-items-center m-3">
+    <div>
+      <h3 class="h6">{{item.product.title}}</h3>
+      <p class="text-primary ">Price : {{item.price | currency: ' EGP '}}</p>
+      <button #removeItem class="btn btn-danger" (click)="deletProduct(item.product.id ,removeItem)"> <i class="fas fa-trash-can"></i> Remove</button>
+    </div>
+    <div>
+      <button #btnUpdateP (click)="UpdateCount(item.count + 1 , item.product._id , btnUpdateP ,btnUpdateM)" class=" fs-5 btn btn-sm border-success m-2">+</button>
+      <span class="fs-5">{{item.count}}</span>
+      <button #btnUpdateM (click)="UpdateCount(item.count -1 , item.product._id , btnUpdateM ,btnUpdateM)" class="fs-5 btn btn-sm border-success m-2">-</button>
+    </div>
+   </div>
+  </div>
+  
+
+  
+  <button class="w-100 fs-4 btn btn-primary mt-3 p-1" [routerLink]="['/payment',cartDetails._id]" >online Payment 
+    <i class="fa-regular fa-credit-card fa-shake"></i>    
+  </button>
+
+
+
+</section>
+<ng-template #emptyMesage>
+  <h2 class="text-center text-bg-danger">Your Cart Is Empty...</h2>
+</ng-template>

@@ -1,0 +1,7 @@
+  .fixed-navv{
+    position: fixed !important;
+    top: 0 px !important;
+    width: 100% !important;
+    z-index: 1000 !important; 
+    background-color : #ffffff; 
+}

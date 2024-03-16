@@ -1,0 +1,14 @@
+@media only screen and (max-width: 1400px) {
+  .element-Hide {
+    display: none;
+  }
+}
+
+.home-img{
+  width: 100%;
+  /* padding: 50px; */
+  height: 60vh;
+  object-fit: cover;
+  /* object-fit: cover; */
+}
+

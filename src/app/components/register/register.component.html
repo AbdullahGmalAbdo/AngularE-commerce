@@ -1,0 +1,89 @@
+<section class="vh-100">
+  <div class="container h-100  mt-2">
+                <form [formGroup]="registerForm" (ngSubmit)="handelForm()" class="mx-1 mx-md-4 border shadow p-5">
+                  <p class="text-center fs-4 fw-bold mb-5 mx-md-4 m-2 text-info ">Register Form</p>
+                  <div  *ngIf="errMsg" class=" validation text-center my-2 " role="alert">
+                    {{errMsg}}
+                  </div>
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw text-info "></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <label class="name" for="email">Name</label>
+                      <input class="form-control" formControlName="name" type="text" id="Name" />
+                      <div>
+                        <p class="validation" *ngIf="registerForm.get('name')?.getError('minlength')">Your name must be at least 3 characters long</p>
+                        <p class="validation" *ngIf="registerForm.get('name')?.getError('maxlength')">Your name cannot exceed 20 characters</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-envelope fa-lg me-3 fa-fw text-info"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <label class="form-label" for="email">Your Email</label>
+                      <input class="form-control"  formControlName="email" type="email" id="email" />
+                      <div>
+                        <p class="validation" *ngIf="registerForm.get('email')?.getError('email')">Enter vaid Email</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-lock fa-lg me-3 fa-fw text-info "></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <label class="form-label" for="password">Password</label>
+                      <input class="form-control"  formControlName="password" type="password" id="password" />
+                      <div>
+                        <p class="validation" *ngIf="registerForm.get('password')?.getError('pattern')"> password must have capital letter, a lowercase  letter, a special character, and Numbers</p>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-key fa-lg me-3 fa-fw text-info "></i>
+                    <!-- <div class="form-outline flex-fill mb-0">
+                      <input formControlName="rePassword" type="password" id="rePassword" class="form-control" />
+                      <label class="form-label" for="repassword">Repeat your password</label>
+                      <div>
+                        <p class="validation" *ngIf="registerForm.get('rePassword')?.getError('mismatch')"> "Password confirmation is incorrect"</p>
+                      </div>
+                    </div> -->
+                    <div class="form-outline flex-fill mb-0">
+                      <label class="form-label" for="rePassword">Repeat your password</label>
+                      <input class="form-control"  formControlName="rePassword" type="password" id="rePassword" />
+                      <div>
+                        <p class="validation" *ngIf="registerForm.get('rePassword')?.getError('mismatch')">Password confirmation is incorrect</p>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-phone fa-lg me-3 fa-fw  text-info"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <label class="form-label" for="phone">Phone</label>
+
+                      <input  class="form-control" formControlName="phone" type="tel" id="phone" />
+                      <div>
+                        <p class="validation" *ngIf="registerForm.get('phone')?.getError('pattern')">accept only egypt phone numbers</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                    <button [disabled]="registerForm.invalid" type="submit"  class="btn btn-info text-light btn-lg active w-100">
+                      
+                       Register <span> <i *ngIf="spinner" class="fas fa-spin fa-spinner"></i> </span></button>
+
+                  </div>
+
+                </form>
+
+              </div>
+              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                  class="img-fluid" alt="Sample image">
+
+ </div>
+        
+</section>

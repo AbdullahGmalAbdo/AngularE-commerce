@@ -1,0 +1,81 @@
+
+
+
+<section  class="">
+  <div class="row g-0 main-slide">
+    <div class="col-md-12">
+      <owl-carousel-o [options]="staticSlideOptions">
+        <ng-template carouselSlide>
+          <img class="home-img" height="1000" src="./assets/images/pexels-arina-krasnikova-5424945.jpg" alt="slide2">
+        </ng-template>  
+        <ng-template carouselSlide>
+          <img class="home-img" src="./assets/images/slide-2.jpeg" alt="slide3">
+        </ng-template>  
+      </owl-carousel-o>
+    </div>
+    
+  </div>
+</section>
+
+
+
+
+<section class="pb-4 " *ngIf="categories.length > 0" >
+  <div class="section-title text-center mb-3 p-4 bg-light">
+    <h3 class="text-info"> POPULAR CATEGORIES </h3>
+  </div>
+  <owl-carousel-o [options]="categoriesOptions">
+
+    <ng-container class="bg-black" *ngFor="let category of categories | slice :  3 : 10 ">
+      <ng-template carouselSlide [id]="category._id">
+        <div class="d-flex flex-column p-2 main-slide border shadow">
+          <img class="w-75 mx-auto"  height="350"  [src]="category.image" [alt]="category.name" [title]="category.name">
+      <h4 class="text-center text-bg-light py-1">{{category.name}}</h4>
+        </div>
+        
+    </ng-template>
+    </ng-container>
+
+  </owl-carousel-o>
+</section>
+
+
+
+
+<section *ngIf="Prouducts.length > 0">
+  <div class="text-center mb-3 p-4 bg-light">
+    <h3 class="text-info">POPULAR PRODUCTS</h3>
+  </div>
+  
+  <div class="row g-4 py-4 ">
+    <div  *ngFor=" let product of Prouducts | slice :  5 : 23 " class="col-sm-6 col-md-4 col-lg-3 col-xl-2 ">
+        <div class="product  row-custom  border position-relative"> 
+          <i *ngIf="!wishListData.includes(product._id)" (click)="addWishlist(product._id)" role="button" class="fa-regular fa-heart hheart "></i>
+          <i *ngIf="wishListData.includes(product._id)" role="button" (click)="removeFav(product._id)" class="fa-solid fa-heart hheartRemove"></i>
+        <header role="button" [routerLink]="['/productDetails',product._id]">
+          <img class="w-100 h-75" [src]="product.imageCover" [alt]="product.title" [title]="product.title">
+          <h3 class="h4 text-center small mt-1">{{product.title | textcut: 3 }}</h3>
+          <h4 class="h6 text-muted text-center">{{product.category.name}}</h4>
+          <div class="d-flex align-items-center justify-content-between px-4">
+          <span>{{ product.price | currency:'e£ ' }}</span>
+            <div class="text-muted ">
+              <i [class.rating-color] ="product.ratingsAverage >= num" *ngFor="let num of [1,2,3,4,5]" class="  fas fa-star"></i>
+               <span>{{product.ratingsAverage}}</span>    
+            </div>
+          </div>
+        </header>
+        <footer> 
+          <button (click)="addToCartt(product._id,addButton)" #addButton class="btn btn-info text-light fs-5  w-100 py-2 mt-1"> Add To Cart <i class="fa-solid fa-cart-shopping"></i></button>
+        </footer>
+      </div>
+
+      
+    </div>
+  </div>
+
+
+
+
+
+  
+</section>
