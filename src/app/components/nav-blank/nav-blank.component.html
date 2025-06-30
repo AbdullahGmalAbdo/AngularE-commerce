@@ -1,71 +1,94 @@
-<nav #navBar class="navbar navbar-expand-lg  navbar-light bg-light fixed-navv ">
+<nav #navBar class="navbar navbar-expand-lg navbar-light bg-white fixed-navv shadow-sm">
   <div class="container-fluid">
-      <a class="navbar-brand" routerLink="/home">
-          <img src="./assets/images/homeLogo.png" width="200" alt="E_commerce-logo">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      <div class="collapse navbar-collapse" id="collapsibleNavId">
-        <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
-          </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" routerLink="/cart" routerLinkActive="active">cart</a>
-          </li> -->
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/products" routerLinkActive="active">products</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/categories" routerLinkActive="active">categories</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/brands" routerLinkActive="active">brands</a>
-          </li>
-        
-        </ul>
-        
-          <ul class="navbar-nav ms-auto mt-2 mt-lg-0  align-items-center">
-            <div class="d-flex align-items-center mx-5">
-              
-            <li class="nav-item">
-                <a class="nav-link position-relative" routerLink="/wishlist">
-                    <span class="fa-solid fa-heart wishlist "></span>
-                    <span class="badge bg-info fs-6 position-absolute top-0" >{{wishListNumber}}</span>
-                  </a>
-            </li> 
-            <li class="nav-item">
-                <a class="nav-link position-relative position-relative" routerLink="/cart">
-                    <span class="fas fa-cart-shopping fa-2x text-main  carttt "></span>
-                     <span class="badge bg-info fs-6 position-absolute top-0" >{{cartItemNumber}}</span>
-                </a>
-            </li> 
-            </div>
-              
+    <a class="navbar-brand" routerLink="/home">
+      <img src="./assets/images/homeLogo.png" width="180" alt="E_commerce-logo" class="logo-img">
+    </a>
+    
+    <button 
+      class="navbar-toggler border-0" 
+      type="button" 
+      data-bs-toggle="collapse" 
+      data-bs-target="#collapsibleNavId" 
+      aria-controls="collapsibleNavId" 
+      aria-expanded="false" 
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="collapsibleNavId">
+      <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active">
+            <i class="fas fa-home me-2"></i>
+            Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/products" routerLinkActive="active">
+            <i class="fas fa-box me-2"></i>
+            Products
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/categories" routerLinkActive="active">
+            <i class="fas fa-tags me-2"></i>
+            Categories
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/brands" routerLinkActive="active">
+            <i class="fas fa-star me-2"></i>
+            Brands
+          </a>
+        </li>
+      </ul>
+      
+      <ul class="navbar-nav ms-auto mt-2 mt-lg-0 align-items-center">
+        <!-- Cart and Wishlist -->
+        <li class="nav-item me-3">
+          <div class="d-flex align-items-center gap-3">
+            <a class="nav-link position-relative cart-wishlist-link" routerLink="/wishlist">
+              <i class="fas fa-heart wishlist-icon"></i>
+              <span class="badge bg-danger position-absolute top-0 start-100 translate-middle" *ngIf="wishListNumber > 0">
+                {{wishListNumber}}
+              </span>
+            </a>
+            <a class="nav-link position-relative cart-wishlist-link" routerLink="/cart">
+              <i class="fas fa-shopping-cart cart-icon"></i>
+              <span class="badge bg-primary position-absolute top-0 start-100 translate-middle" *ngIf="cartItemNumber > 0">
+                {{cartItemNumber}}
+              </span>
+            </a>
+          </div>
+        </li>
 
+        <!-- Social Links -->
+        <li class="nav-item me-3">
+          <div class="d-flex align-items-center gap-2 social-links">
+            <a href="#" class="social-link">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="social-link">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="social-link">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="social-link">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </li>
 
-              <li class="nav-item d-flex gap-3 me-3">
-                  <a href="">
-                      <li class="fab fa-instagram"></li>
-                  </a>
-                  <a href="">
-                      <li class="fab fa-facebook"></li>
-                  </a>
-                  <a href="">
-                      <li class="fab fa-tiktok"></li>
-                  </a>
-                  <a href="">
-                      <li class="fab fa-twitter"></li>
-                  </a>
-                  <a href="">
-                      <li class="fab fa-youtube"></li>
-                  </a>
-              </li>
-              <li class="nav-item">
-                  <span (click)="signOUt()" role="button">SignOut</span>
-              </li> 
-          </ul>
-      </div>
+        <!-- Sign Out -->
+        <li class="nav-item">
+          <button class="btn btn-outline-danger btn-sm" (click)="signOUt()">
+            <i class="fas fa-sign-out-alt me-2"></i>
+            Sign Out
+          </button>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>

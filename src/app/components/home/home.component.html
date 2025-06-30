@@ -1,81 +1,226 @@
-
-
-
-<section  class="">
+<section class="hero-section">
   <div class="row g-0 main-slide">
     <div class="col-md-12">
-      <owl-carousel-o [options]="staticSlideOptions">
+      <owl-carousel-o [options]="staticSlideOptions" class="hero-carousel">
         <ng-template carouselSlide>
-          <img class="home-img" height="1000" src="./assets/images/pexels-arina-krasnikova-5424945.jpg" alt="slide2">
+          <div class="hero-slide">
+            <img class="hero-image" height="1000" src="./assets/images/pexels-arina-krasnikova-5424945.jpg" alt="slide2">
+            <div class="hero-overlay">
+              <div class="hero-content animate-fade-in">
+                <h1 class="hero-title">Discover Amazing Products</h1>
+                <p class="hero-subtitle">Shop the latest trends with unbeatable prices</p>
+                <button class="btn btn-primary btn-lg hero-cta" routerLink="/products">
+                  Shop Now
+                  <i class="fas fa-arrow-right ms-2"></i>
+                </button>
+              </div>
+            </div>
+          </div>
         </ng-template>  
         <ng-template carouselSlide>
-          <img class="home-img" src="./assets/images/slide-2.jpeg" alt="slide3">
+          <div class="hero-slide">
+            <img class="hero-image" src="./assets/images/slide-2.jpeg" alt="slide3">
+            <div class="hero-overlay">
+              <div class="hero-content animate-fade-in">
+                <h1 class="hero-title">Premium Quality</h1>
+                <p class="hero-subtitle">Experience excellence in every product</p>
+                <button class="btn btn-primary btn-lg hero-cta" routerLink="/products">
+                  Explore Collection
+                  <i class="fas fa-arrow-right ms-2"></i>
+                </button>
+              </div>
+            </div>
+          </div>
         </ng-template>  
       </owl-carousel-o>
     </div>
+  </div>
+</section>
+
+<!-- Categories Section -->
+<section class="categories-section py-5" *ngIf="categories.length > 0">
+  <div class="container">
+    <div class="section-header text-center mb-5 animate-fade-in">
+      <h2 class="section-title">Popular Categories</h2>
+      <p class="section-subtitle">Explore our wide range of product categories</p>
+    </div>
     
-  </div>
-</section>
-
-
-
-
-<section class="pb-4 " *ngIf="categories.length > 0" >
-  <div class="section-title text-center mb-3 p-4 bg-light">
-    <h3 class="text-info"> POPULAR CATEGORIES </h3>
-  </div>
-  <owl-carousel-o [options]="categoriesOptions">
-
-    <ng-container class="bg-black" *ngFor="let category of categories | slice :  3 : 10 ">
-      <ng-template carouselSlide [id]="category._id">
-        <div class="d-flex flex-column p-2 main-slide border shadow">
-          <img class="w-75 mx-auto"  height="350"  [src]="category.image" [alt]="category.name" [title]="category.name">
-      <h4 class="text-center text-bg-light py-1">{{category.name}}</h4>
-        </div>
-        
-    </ng-template>
-    </ng-container>
-
-  </owl-carousel-o>
-</section>
-
-
-
-
-<section *ngIf="Prouducts.length > 0">
-  <div class="text-center mb-3 p-4 bg-light">
-    <h3 class="text-info">POPULAR PRODUCTS</h3>
-  </div>
-  
-  <div class="row g-4 py-4 ">
-    <div  *ngFor=" let product of Prouducts | slice :  5 : 23 " class="col-sm-6 col-md-4 col-lg-3 col-xl-2 ">
-        <div class="product  row-custom  border position-relative"> 
-          <i *ngIf="!wishListData.includes(product._id)" (click)="addWishlist(product._id)" role="button" class="fa-regular fa-heart hheart "></i>
-          <i *ngIf="wishListData.includes(product._id)" role="button" (click)="removeFav(product._id)" class="fa-solid fa-heart hheartRemove"></i>
-        <header role="button" [routerLink]="['/productDetails',product._id]">
-          <img class="w-100 h-75" [src]="product.imageCover" [alt]="product.title" [title]="product.title">
-          <h3 class="h4 text-center small mt-1">{{product.title | textcut: 3 }}</h3>
-          <h4 class="h6 text-muted text-center">{{product.category.name}}</h4>
-          <div class="d-flex align-items-center justify-content-between px-4">
-          <span>{{ product.price | currency:'e£ ' }}</span>
-            <div class="text-muted ">
-              <i [class.rating-color] ="product.ratingsAverage >= num" *ngFor="let num of [1,2,3,4,5]" class="  fas fa-star"></i>
-               <span>{{product.ratingsAverage}}</span>    
+    <owl-carousel-o [options]="categoriesOptions" class="categories-carousel">
+      <ng-container *ngFor="let category of categories | slice : 3 : 10; let i = index">
+        <ng-template carouselSlide [id]="category._id">
+          <div class="category-card animate-scale-in" [style.animation-delay]="(i * 0.1) + 's'">
+            <div class="category-image-container">
+              <img 
+                class="category-image" 
+                height="200" 
+                [src]="category.image" 
+                [alt]="category.name" 
+                [title]="category.name"
+                loading="lazy"
+              >
+              <div class="category-overlay">
+                <i class="fas fa-eye"></i>
+              </div>
+            </div>
+            <div class="category-info">
+              <h4 class="category-name">{{category.name}}</h4>
             </div>
           </div>
-        </header>
-        <footer> 
-          <button (click)="addToCartt(product._id,addButton)" #addButton class="btn btn-info text-light fs-5  w-100 py-2 mt-1"> Add To Cart <i class="fa-solid fa-cart-shopping"></i></button>
-        </footer>
-      </div>
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+  </div>
+</section>
 
-      
+<!-- Featured Products Section -->
+<section class="featured-products-section py-5" *ngIf="Prouducts.length > 0">
+  <div class="container">
+    <div class="section-header text-center mb-5 animate-fade-in">
+      <h2 class="section-title">Featured Products</h2>
+      <p class="section-subtitle">Handpicked products just for you</p>
+    </div>
+    
+    <div class="products-grid">
+      <div 
+        *ngFor="let product of Prouducts | slice : 5 : 17; let i = index" 
+        class="product-card animate-scale-in"
+        [style.animation-delay]="(i * 0.1) + 's'"
+      >
+        <div class="product position-relative h-100">
+          <!-- Wishlist Button -->
+          <button 
+            *ngIf="!wishListData.includes(product._id)" 
+            (click)="addWishlist(product._id)" 
+            class="btn-wishlist"
+            aria-label="Add to wishlist"
+          >
+            <i class="fa-regular fa-heart"></i>
+          </button>
+          <button 
+            *ngIf="wishListData.includes(product._id)" 
+            (click)="removeFav(product._id)" 
+            class="btn-wishlist active"
+            aria-label="Remove from wishlist"
+          >
+            <i class="fa-solid fa-heart"></i>
+          </button>
+
+          <!-- Product Badge -->
+          <div class="product-badge" *ngIf="product.ratingsAverage >= 4.5">
+            <span class="badge bg-success">
+              <i class="fas fa-star me-1"></i>
+              Top Rated
+            </span>
+          </div>
+
+          <!-- Product Image -->
+          <div class="product-image-container" [routerLink]="['/productDetails',product._id]">
+            <img 
+              class="product-image" 
+              [src]="product.imageCover" 
+              [alt]="product.title" 
+              [title]="product.title"
+              loading="lazy"
+            >
+            <div class="product-overlay">
+              <div class="overlay-content">
+                <i class="fas fa-eye mb-2"></i>
+                <span>Quick View</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Info -->
+          <div class="product-info">
+            <h5 class="product-title" [routerLink]="['/productDetails',product._id]">
+              {{product.title | textcut: 3}}
+            </h5>
+            <p class="product-category">{{product.category.name}}</p>
+            
+            <!-- Rating and Price -->
+            <div class="product-meta">
+              <div class="product-rating">
+                <span 
+                  *ngFor="let num of [1,2,3,4,5]" 
+                  [class.rating-color]="product.ratingsAverage >= num"
+                  class="fas fa-star"
+                ></span>
+                <span class="rating-text">({{product.ratingsAverage}})</span>
+              </div>
+              <div class="product-price">
+                <span class="price-current">{{product.price | currency:'EGP '}}</span>
+              </div>
+            </div>
+
+            <!-- Add to Cart Button -->
+            <button 
+              (click)="addToCartt(product._id, $event.target)" 
+              class="btn btn-primary w-100 btn-add-to-cart"
+              [disabled]="isAddingToCart"
+            >
+              <span *ngIf="!isAddingToCart">
+                <i class="fas fa-cart-plus me-2"></i>
+                Add To Cart
+              </span>
+              <span *ngIf="isAddingToCart" class="btn-loading">
+                Adding...
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- View All Products Button -->
+    <div class="text-center mt-5 animate-fade-in">
+      <button class="btn btn-outline-primary btn-lg" routerLink="/products">
+        View All Products
+        <i class="fas fa-arrow-right ms-2"></i>
+      </button>
     </div>
   </div>
+</section>
 
-
-
-
-
-  
+<!-- Features Section -->
+<section class="features-section py-5 bg-light">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-3 col-sm-6">
+        <div class="feature-card text-center animate-fade-in">
+          <div class="feature-icon">
+            <i class="fas fa-shipping-fast"></i>
+          </div>
+          <h5 class="feature-title">Free Shipping</h5>
+          <p class="feature-description">Free shipping on orders over $50</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="feature-card text-center animate-fade-in">
+          <div class="feature-icon">
+            <i class="fas fa-undo"></i>
+          </div>
+          <h5 class="feature-title">Easy Returns</h5>
+          <p class="feature-description">30-day return policy</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="feature-card text-center animate-fade-in">
+          <div class="feature-icon">
+            <i class="fas fa-headset"></i>
+          </div>
+          <h5 class="feature-title">24/7 Support</h5>
+          <p class="feature-description">Round-the-clock customer service</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="feature-card text-center animate-fade-in">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h5 class="feature-title">Secure Payment</h5>
+          <p class="feature-description">100% secure transactions</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
