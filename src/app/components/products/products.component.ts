@@ -159,11 +159,11 @@ export class ProductsComponent implements OnInit {
     this.getFilteredProducts();
   }
 
-  onCategoryChange(event: any, categoryId: string): void {
+  onCategoryChange(event: any, categoryName: string): void {
     if (event.target.checked) {
-      this.selectedCategories.push(categoryId);
+      this.selectedCategories.push(categoryName);
     } else {
-      this.selectedCategories = this.selectedCategories.filter(id => id !== categoryId);
+      this.selectedCategories = this.selectedCategories.filter(name => name !== categoryName);
     }
     this.CerentPage = 1;
     this.getFilteredProducts();

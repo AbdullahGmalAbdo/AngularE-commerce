@@ -154,7 +154,8 @@
 
             <!-- Add to Cart Button -->
             <button 
-              (click)="addToCartt(product._id, $event.target)" 
+              (click)="addToCartt(product._id, addButton)" 
+              #addButton
               class="btn btn-primary w-100 btn-add-to-cart"
               [disabled]="isAddingToCart"
             >
