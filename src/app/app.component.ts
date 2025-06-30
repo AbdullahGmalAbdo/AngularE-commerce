@@ -29,9 +29,17 @@ export class AppComponent implements OnInit {
     const token = localStorage.getItem('etoken');
     const currentUrl = this.router.url;
     
+    console.log('Current URL:', currentUrl);
+    console.log('Token exists:', !!token);
+    
     // If no token and not on auth pages, redirect to login
     if (!token && !this.isAuthPage(currentUrl)) {
+      console.log('Redirecting to login - no token and not on auth page');
       this.router.navigate(['/login']);
+    } else if (token && this.isAuthPage(currentUrl)) {
+      // If user has token but is on auth page, redirect to home
+      console.log('Redirecting to home - user authenticated but on auth page');
+      this.router.navigate(['/home']);
     }
   }
 

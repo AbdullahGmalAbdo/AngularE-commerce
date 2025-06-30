@@ -3,6 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { authGardGuard } from './core/guard/auth-gard.guard';
 
 const routes: Routes = [
+  // Default redirect to home
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+  
+  // Protected routes (require authentication)
   {
     path: '',
     canActivate: [authGardGuard],
@@ -11,7 +19,6 @@ const routes: Routes = [
         (m) => m.BlankLayoutComponent
       ),
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
       {
         path: 'home',
         loadComponent: () =>
@@ -26,7 +33,7 @@ const routes: Routes = [
           import('./components/cart/cart.component').then(
             (m) => m.CartComponent
           ),
-        title: 'cart',
+        title: 'Cart',
       },
       {
         path: 'products',
@@ -34,7 +41,7 @@ const routes: Routes = [
           import('./components/products/products.component').then(
             (m) => m.ProductsComponent
           ),
-        title: 'products',
+        title: 'Products',
       },
       {
         path: 'payment/:id',
@@ -42,7 +49,7 @@ const routes: Routes = [
           import('./components/payment/payment.component').then(
             (m) => m.PaymentComponent
           ),
-        title: 'payment',
+        title: 'Payment',
       },
       {
         path: 'productDetails/:id',
@@ -50,7 +57,7 @@ const routes: Routes = [
           import('./components/details/details.component').then(
             (m) => m.DetailsComponent
           ),
-        title: 'productDetails',
+        title: 'Product Details',
       },
       {
         path: 'brands',
@@ -58,7 +65,7 @@ const routes: Routes = [
           import('./components/brands/brands.component').then(
             (m) => m.BrandsComponent
           ),
-        title: 'brands',
+        title: 'Brands',
       },
       {
         path: 'categories',
@@ -74,7 +81,7 @@ const routes: Routes = [
           import('./components/wishlist/wishlist.component').then(
             (m) => m.WishlistComponent
           ),
-        title: 'wishlist',
+        title: 'Wishlist',
       },
       {
         path: 'categoriesDetails/:id',
@@ -82,10 +89,12 @@ const routes: Routes = [
           import('./components/category-details/category-details.component').then(
             (m) => m.CategoryDetailsComponent
           ),
-        title: 'Categories-Details',
+        title: 'Category Details',
       },
     ],
   },
+
+  // Auth routes (public access)
   {
     path: 'auth',
     loadComponent: () =>
@@ -93,7 +102,6 @@ const routes: Routes = [
         (m) => m.AuthLayoutComponent
       ),
     children: [
-      { path: '', redirectTo: 'login', pathMatch: 'full' },
       {
         path: 'login',
         loadComponent: () =>
@@ -103,23 +111,24 @@ const routes: Routes = [
         title: 'Login',
       },
       {
-        path: 'forgetPassord',
-        loadComponent: () => 
-          import('./components/forget-password/forget-password.component').then(
-            (m) => m.ForgetPasswordComponent
-          ),
-        title: 'forgetPassord',
-      },
-      {
         path: 'register',
         loadComponent: () =>
           import('./components/register/register.component').then(
             (m) => m.RegisterComponent
           ),
-        title: 'register',
+        title: 'Register',
+      },
+      {
+        path: 'forgetPassord',
+        loadComponent: () => 
+          import('./components/forget-password/forget-password.component').then(
+            (m) => m.ForgetPasswordComponent
+          ),
+        title: 'Forget Password',
       },
     ],
   },
+
   // Fallback routes for unauthenticated users
   {
     path: 'login',
@@ -145,6 +154,7 @@ const routes: Routes = [
       ),
     title: 'Forget Password',
   },
+
   // Wildcard route - must be last
   { 
     path: '**',
@@ -152,16 +162,19 @@ const routes: Routes = [
       import('./components/notfound/notfound.component').then(
         (m) => m.NotfoundComponent
       ),
-    title: 'Not Found page',
+    title: 'Page Not Found',
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
-    useHash: false, // Changed from true to false for better SEO
+    useHash: false, // Keep this false for better SEO
     scrollPositionRestoration: 'enabled',
     enableTracing: false, // Set to true for debugging
-    preloadingStrategy: undefined
+    preloadingStrategy: undefined,
+    // Add these options for better routing
+    onSameUrlNavigation: 'reload',
+    urlUpdateStrategy: 'eager'
   })],
   exports: [RouterModule],
 })
