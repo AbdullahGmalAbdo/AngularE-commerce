@@ -5,7 +5,7 @@ import { authGardGuard } from './core/guard/auth-gard.guard';
 const routes: Routes = [
   {
     path: '',
-    canActivate : [authGardGuard],
+    canActivate: [authGardGuard],
     loadComponent: () =>
       import('./layouts/blank-layout/blank-layout.component').then(
         (m) => m.BlankLayoutComponent
@@ -60,7 +60,6 @@ const routes: Routes = [
           ),
         title: 'brands',
       },
-
       {
         path: 'categories',
         loadComponent: () =>
@@ -86,13 +85,9 @@ const routes: Routes = [
         title: 'Categories-Details',
       },
     ],
-
   },
-
-
-
   {
-    path: '',
+    path: 'auth',
     loadComponent: () =>
       import('./layouts/auth-layout/auth-layout.component').then(
         (m) => m.AuthLayoutComponent
@@ -125,19 +120,49 @@ const routes: Routes = [
       },
     ],
   },
-
-
-
-{ path: '**',
-        loadComponent: () =>  
-          import('./components/notfound/notfound.component').then(
-            (m) => m.NotfoundComponent
-          ),
-        title: 'Not Found page',},
+  // Fallback routes for unauthenticated users
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./components/login/login.component').then(
+        (m) => m.LoginComponent
+      ),
+    title: 'Login',
+  },
+  {
+    path: 'register',
+    loadComponent: () =>
+      import('./components/register/register.component').then(
+        (m) => m.RegisterComponent
+      ),
+    title: 'Register',
+  },
+  {
+    path: 'forgetPassord',
+    loadComponent: () => 
+      import('./components/forget-password/forget-password.component').then(
+        (m) => m.ForgetPasswordComponent
+      ),
+    title: 'Forget Password',
+  },
+  // Wildcard route - must be last
+  { 
+    path: '**',
+    loadComponent: () =>  
+      import('./components/notfound/notfound.component').then(
+        (m) => m.NotfoundComponent
+      ),
+    title: 'Not Found page',
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{useHash:true ,scrollPositionRestoration : 'enabled'})],
-exports: [RouterModule],
+  imports: [RouterModule.forRoot(routes, {
+    useHash: false, // Changed from true to false for better SEO
+    scrollPositionRestoration: 'enabled',
+    enableTracing: false, // Set to true for debugging
+    preloadingStrategy: undefined
+  })],
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

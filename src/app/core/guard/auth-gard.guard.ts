@@ -2,13 +2,17 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 
 export const authGardGuard: CanActivateFn = (route, state) => {
-  const _Roter=inject(Router)
-  if(localStorage.getItem('etoken')){
+  const _Router = inject(Router);
+  
+  // Check if user is authenticated
+  const token = localStorage.getItem('etoken');
+  
+  if (token) {
+    // User is authenticated, allow access
     return true;
-  }
-  else{
-    _Roter.navigate(['/login'])
+  } else {
+    // User is not authenticated, redirect to login
+    _Router.navigate(['/login']);
     return false;
-
   }
 };
