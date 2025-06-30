@@ -168,11 +168,10 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
-    useHash: false, // Keep this false for better SEO
+    useHash: false,
     scrollPositionRestoration: 'enabled',
-    enableTracing: false, // Set to true for debugging
+    enableTracing: false,
     preloadingStrategy: undefined,
-    // Add these options for better routing
     onSameUrlNavigation: 'reload',
     urlUpdateStrategy: 'eager'
   })],
